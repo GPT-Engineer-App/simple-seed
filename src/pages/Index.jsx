@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useNotes, useAddNote, useUpdateNote, useDeleteNote } from "@/integrations/supabase/index.js";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { useSupabaseAuth } from "@/integrations/supabase/auth.jsx";
 
 const Index = () => {
@@ -93,27 +92,22 @@ const Index = () => {
           ) : isError ? (
             <p>Error loading notes.</p>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Title</TableHead>
-                  <TableHead>Content</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {notes.map((note) => (
-                  <TableRow key={note.id}>
-                    <TableCell>{note.title}</TableCell>
-                    <TableCell>{note.content}</TableCell>
-                    <TableCell>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {notes.map((note) => (
+                <Card key={note.id}>
+                  <CardHeader>
+                    <CardTitle>{note.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p>{note.content}</p>
+                    <div className="mt-4 flex space-x-2">
                       <Button variant="outline" onClick={() => openEditModal(note)}>Edit</Button>
                       <Button variant="destructive" onClick={() => handleDeleteNote(note.id)}>Delete</Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           )}
         </CardContent>
       </Card>
