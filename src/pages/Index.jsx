@@ -7,9 +7,11 @@ import { useToast } from "@/components/ui/use-toast";
 import { useNotes, useAddNote, useUpdateNote, useDeleteNote } from "@/integrations/supabase/index.js";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { useSupabaseAuth } from "@/integrations/supabase/auth.jsx";
 
 const Index = () => {
   const { toast } = useToast();
+  const { logout } = useSupabaseAuth();
 
   const { data: notes, isLoading, isError } = useNotes();
   const addNote = useAddNote();
@@ -85,6 +87,7 @@ const Index = () => {
         </CardHeader>
         <CardContent>
           <Button className="mb-4" onClick={openAddModal}>Add Note</Button>
+          <Button className="mb-4 ml-4" variant="destructive" onClick={logout}>Logout</Button>
           {isLoading ? (
             <p>Loading...</p>
           ) : isError ? (
