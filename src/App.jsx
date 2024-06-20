@@ -1,6 +1,7 @@
 import { Route, BrowserRouter as Router, Routes, Navigate } from "react-router-dom";
 import Index from "./pages/Index.jsx";
 
+import Navbar from "./components/Navbar.jsx"; // Import the Navbar component
 import { useSupabaseAuth, SupabaseAuthUI } from "./integrations/supabase/auth.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
@@ -16,6 +17,7 @@ function App() {
   );
   return (
     <Router>
+      <Navbar /> {/* Add the Navbar component here */}
       <Routes>
         <Route
           path="/"
